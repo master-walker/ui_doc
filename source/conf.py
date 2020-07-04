@@ -17,9 +17,9 @@
 
 # -- Project information -----------------------------------------------------
 # 引入项目路径
-import os
-import sys
-sys.path.append(os.path.abspath('../../'))
+# import os
+# import sys
+# sys.path.append(os.path.abspath('../../'))
 
 project = 'ui_doc'
 copyright = '2020, lc'
