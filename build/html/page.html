@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>页面模块 &mdash; ui_doc 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="Android页面模块" href="page.android.html" />
+    <link rel="prev" title="基础模块" href="base.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> ui_doc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="base.html">基础模块</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">页面模块</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="page.android.html">Android页面模块</a></li>
+<li class="toctree-l3"><a class="reference internal" href="page.ios.html">IOS页面模块</a></li>
+<li class="toctree-l3"><a class="reference internal" href="page.web.html">WEB页面模块</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-page.android_common_page">page.android_common_page module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-page.ios_common_page">page.ios_common_page module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-page.web_common_page">page.web_common_page module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-page">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="page.android.html">Android页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="page.ios.html">IOS页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="page.web.html">WEB页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testcase.html">用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testcase.android.html">Android用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testcase.ios.html">IOS用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testcase.web.html">WEB用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">辅助工具模块</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ui_doc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>页面模块</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/page.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>页面模块<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="永久链接至标题">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="page.android.html">Android页面模块</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="page.android.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page.android.html#module-page.android.login_page">page.android.login_page module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page.android.html#module-page.android">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="page.ios.html">IOS页面模块</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="page.ios.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page.ios.html#module-page.ios.home_page">page.ios.home_page module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page.ios.html#module-page.ios.login_page">page.ios.login_page module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page.ios.html#module-page.ios">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="page.web.html">WEB页面模块</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="page.web.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page.web.html#module-page.web.home_page">page.web.home_page module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page.web.html#module-page.web.login_page">page.web.login_page module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="page.web.html#module-page.web">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="module-page.android_common_page">
+<span id="page-android-common-page-module"></span><h2>page.android_common_page module<a class="headerlink" href="#module-page.android_common_page" title="永久链接至标题">¶</a></h2>
+<dl class="py class">
+<dt id="page.android_common_page.AndroidCommonPage">
+<em class="property">class </em><code class="sig-prename descclassname">page.android_common_page.</code><code class="sig-name descname">AndroidCommonPage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">driver</span><span class="p">:</span> <span class="n">appium.webdriver.webdriver.WebDriver</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/android_common_page.html#AndroidCommonPage"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.android_common_page.AndroidCommonPage" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="base.html#base.mobile_page.MobilePage" title="base.mobile_page.MobilePage"><code class="xref py py-class docutils literal notranslate"><span class="pre">base.mobile_page.MobilePage</span></code></a></p>
+<p>公共页面常用的元素和公共方法</p>
+<dl class="py method">
+<dt id="page.android_common_page.AndroidCommonPage.login">
+<code class="sig-name descname">login</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/android_common_page.html#AndroidCommonPage.login"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.android_common_page.AndroidCommonPage.login" title="永久链接至目标">¶</a></dt>
+<dd><p>编程猫登录</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="page.android_common_page.AndroidCommonPage.login_btn">
+<code class="sig-name descname">login_btn</code><em class="property"> = ('id', 'com.codemao.nemo:id/bt_Login')</em><a class="headerlink" href="#page.android_common_page.AndroidCommonPage.login_btn" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.android_common_page.AndroidCommonPage.login_locators">
+<code class="sig-name descname">login_locators</code><em class="property"> = [('id', 'com.codemao.nemo:id/edit_user_name', '用户名输入框'), ('id', 'com.codemao.nemo:id/et_password'), ('id', 'com.codemao.nemo:id/bt_Login')]</em><a class="headerlink" href="#page.android_common_page.AndroidCommonPage.login_locators" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.android_common_page.AndroidCommonPage.pwd_input">
+<code class="sig-name descname">pwd_input</code><em class="property"> = ('id', 'com.codemao.nemo:id/et_password')</em><a class="headerlink" href="#page.android_common_page.AndroidCommonPage.pwd_input" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.android_common_page.AndroidCommonPage.username_input">
+<code class="sig-name descname">username_input</code><em class="property"> = ('id', 'com.codemao.nemo:id/edit_user_name', '用户名输入框')</em><a class="headerlink" href="#page.android_common_page.AndroidCommonPage.username_input" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-page.ios_common_page">
+<span id="page-ios-common-page-module"></span><h2>page.ios_common_page module<a class="headerlink" href="#module-page.ios_common_page" title="永久链接至标题">¶</a></h2>
+<dl class="py class">
+<dt id="page.ios_common_page.IosCommonPage">
+<em class="property">class </em><code class="sig-prename descclassname">page.ios_common_page.</code><code class="sig-name descname">IosCommonPage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">driver</span><span class="p">:</span> <span class="n">appium.webdriver.webdriver.WebDriver</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/ios_common_page.html#IosCommonPage"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.ios_common_page.IosCommonPage" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="base.html#base.mobile_page.MobilePage" title="base.mobile_page.MobilePage"><code class="xref py py-class docutils literal notranslate"><span class="pre">base.mobile_page.MobilePage</span></code></a></p>
+<p>公共页面常用的元素和公共方法</p>
+<p>common_page主要用于公共页面元素和公共方法的封装，所有页面共用</p>
+<p>元素示例：
+由定位方式，定位的值，元素信息组成，
+locator = (By.ID, ‘element_id’, “元素信息”)  元素信息可选，主要用于打印调试日志以及方便后期维护元素
+或
+locator = (By.ID, ‘element_id’)</p>
+<p>页面操作封装</p>
+<p>直接调用base_page, mobile_page提供的方法即可</p>
+<dl class="simple">
+<dt>def step(self):</dt><dd><p>self.xx(self.locator)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="page.ios_common_page.IosCommonPage.click_codemao_act">
+<code class="sig-name descname">click_codemao_act</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/ios_common_page.html#IosCommonPage.click_codemao_act"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.ios_common_page.IosCommonPage.click_codemao_act" title="永久链接至目标">¶</a></dt>
+<dd><p>点击入口页面-编程猫账号</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="page.ios_common_page.IosCommonPage.login">
+<code class="sig-name descname">login</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/ios_common_page.html#IosCommonPage.login"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.ios_common_page.IosCommonPage.login" title="永久链接至目标">¶</a></dt>
+<dd><p>登录方法</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-page.web_common_page">
+<span id="page-web-common-page-module"></span><h2>page.web_common_page module<a class="headerlink" href="#module-page.web_common_page" title="永久链接至标题">¶</a></h2>
+<dl class="py class">
+<dt id="page.web_common_page.WebCommonPage">
+<em class="property">class </em><code class="sig-prename descclassname">page.web_common_page.</code><code class="sig-name descname">WebCommonPage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">driver</span><span class="p">:</span> <span class="n">selenium.webdriver.chrome.webdriver.WebDriver</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/web_common_page.html#WebCommonPage"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.web_common_page.WebCommonPage" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="base.html#base.web_page.WebPage" title="base.web_page.WebPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">base.web_page.WebPage</span></code></a></p>
+<p>公共页面常用的元素和公共方法</p>
+<dl class="py method">
+<dt id="page.web_common_page.WebCommonPage.check_url_and_log">
+<code class="sig-name descname">check_url_and_log</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expected_url</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/web_common_page.html#WebCommonPage.check_url_and_log"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.web_common_page.WebCommonPage.check_url_and_log" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="page.web_common_page.WebCommonPage.click_to_home_page">
+<code class="sig-name descname">click_to_home_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/web_common_page.html#WebCommonPage.click_to_home_page"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.web_common_page.WebCommonPage.click_to_home_page" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.web_common_page.WebCommonPage.home_link">
+<code class="sig-name descname">home_link</code><em class="property"> = ('link text', '首页', '首页tab')</em><a class="headerlink" href="#page.web_common_page.WebCommonPage.home_link" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="page.web_common_page.WebCommonPage.login">
+<code class="sig-name descname">login</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/web_common_page.html#WebCommonPage.login"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.web_common_page.WebCommonPage.login" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.web_common_page.WebCommonPage.login_btn">
+<code class="sig-name descname">login_btn</code><em class="property"> = ('xpath', '//button[contains(text(), &quot;登录&quot;)]')</em><a class="headerlink" href="#page.web_common_page.WebCommonPage.login_btn" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.web_common_page.WebCommonPage.login_locators">
+<code class="sig-name descname">login_locators</code><em class="property"> = [('css selector', 'input[placeholder=&quot;手机号/用户名/邮箱&quot;]'), ('xpath', '//input[&#64;placeholder=&quot;密码&quot;]'), ('xpath', '//button[contains(text(), &quot;登录&quot;)]')]</em><a class="headerlink" href="#page.web_common_page.WebCommonPage.login_locators" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="page.web_common_page.WebCommonPage.open_and_maximize">
+<code class="sig-name descname">open_and_maximize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/web_common_page.html#WebCommonPage.open_and_maximize"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.web_common_page.WebCommonPage.open_and_maximize" title="永久链接至目标">¶</a></dt>
+<dd><p>打开网址并最大化窗口</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="page.web_common_page.WebCommonPage.pwd_input_box">
+<code class="sig-name descname">pwd_input_box</code><em class="property"> = ('xpath', '//input[&#64;placeholder=&quot;密码&quot;]')</em><a class="headerlink" href="#page.web_common_page.WebCommonPage.pwd_input_box" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.web_common_page.WebCommonPage.user_name_input_box">
+<code class="sig-name descname">user_name_input_box</code><em class="property"> = ('css selector', 'input[placeholder=&quot;手机号/用户名/邮箱&quot;]')</em><a class="headerlink" href="#page.web_common_page.WebCommonPage.user_name_input_box" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-page">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-page" title="永久链接至标题">¶</a></h2>
+<dl class="py class">
+<dt id="page.AndroidCommonPage">
+<em class="property">class </em><code class="sig-prename descclassname">page.</code><code class="sig-name descname">AndroidCommonPage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">driver</span><span class="p">:</span> <span class="n">appium.webdriver.webdriver.WebDriver</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/android_common_page.html#AndroidCommonPage"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.AndroidCommonPage" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="base.html#base.mobile_page.MobilePage" title="base.mobile_page.MobilePage"><code class="xref py py-class docutils literal notranslate"><span class="pre">base.mobile_page.MobilePage</span></code></a></p>
+<p>公共页面常用的元素和公共方法</p>
+<dl class="py method">
+<dt id="page.AndroidCommonPage.login">
+<code class="sig-name descname">login</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/android_common_page.html#AndroidCommonPage.login"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.AndroidCommonPage.login" title="永久链接至目标">¶</a></dt>
+<dd><p>编程猫登录</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="page.AndroidCommonPage.login_btn">
+<code class="sig-name descname">login_btn</code><em class="property"> = ('id', 'com.codemao.nemo:id/bt_Login')</em><a class="headerlink" href="#page.AndroidCommonPage.login_btn" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.AndroidCommonPage.login_locators">
+<code class="sig-name descname">login_locators</code><em class="property"> = [('id', 'com.codemao.nemo:id/edit_user_name', '用户名输入框'), ('id', 'com.codemao.nemo:id/et_password'), ('id', 'com.codemao.nemo:id/bt_Login')]</em><a class="headerlink" href="#page.AndroidCommonPage.login_locators" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.AndroidCommonPage.pwd_input">
+<code class="sig-name descname">pwd_input</code><em class="property"> = ('id', 'com.codemao.nemo:id/et_password')</em><a class="headerlink" href="#page.AndroidCommonPage.pwd_input" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.AndroidCommonPage.username_input">
+<code class="sig-name descname">username_input</code><em class="property"> = ('id', 'com.codemao.nemo:id/edit_user_name', '用户名输入框')</em><a class="headerlink" href="#page.AndroidCommonPage.username_input" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="page.IosCommonPage">
+<em class="property">class </em><code class="sig-prename descclassname">page.</code><code class="sig-name descname">IosCommonPage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">driver</span><span class="p">:</span> <span class="n">appium.webdriver.webdriver.WebDriver</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/ios_common_page.html#IosCommonPage"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.IosCommonPage" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="base.html#base.mobile_page.MobilePage" title="base.mobile_page.MobilePage"><code class="xref py py-class docutils literal notranslate"><span class="pre">base.mobile_page.MobilePage</span></code></a></p>
+<p>公共页面常用的元素和公共方法</p>
+<p>common_page主要用于公共页面元素和公共方法的封装，所有页面共用</p>
+<p>元素示例：
+由定位方式，定位的值，元素信息组成，
+locator = (By.ID, ‘element_id’, “元素信息”)  元素信息可选，主要用于打印调试日志以及方便后期维护元素
+或
+locator = (By.ID, ‘element_id’)</p>
+<p>页面操作封装</p>
+<p>直接调用base_page, mobile_page提供的方法即可</p>
+<dl class="simple">
+<dt>def step(self):</dt><dd><p>self.xx(self.locator)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="page.IosCommonPage.click_codemao_act">
+<code class="sig-name descname">click_codemao_act</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/ios_common_page.html#IosCommonPage.click_codemao_act"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.IosCommonPage.click_codemao_act" title="永久链接至目标">¶</a></dt>
+<dd><p>点击入口页面-编程猫账号</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="page.IosCommonPage.login">
+<code class="sig-name descname">login</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/ios_common_page.html#IosCommonPage.login"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.IosCommonPage.login" title="永久链接至目标">¶</a></dt>
+<dd><p>登录方法</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="page.WebCommonPage">
+<em class="property">class </em><code class="sig-prename descclassname">page.</code><code class="sig-name descname">WebCommonPage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">driver</span><span class="p">:</span> <span class="n">selenium.webdriver.chrome.webdriver.WebDriver</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/web_common_page.html#WebCommonPage"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.WebCommonPage" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="base.html#base.web_page.WebPage" title="base.web_page.WebPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">base.web_page.WebPage</span></code></a></p>
+<p>公共页面常用的元素和公共方法</p>
+<dl class="py method">
+<dt id="page.WebCommonPage.check_url_and_log">
+<code class="sig-name descname">check_url_and_log</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expected_url</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/web_common_page.html#WebCommonPage.check_url_and_log"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.WebCommonPage.check_url_and_log" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="page.WebCommonPage.click_to_home_page">
+<code class="sig-name descname">click_to_home_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/web_common_page.html#WebCommonPage.click_to_home_page"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.WebCommonPage.click_to_home_page" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.WebCommonPage.home_link">
+<code class="sig-name descname">home_link</code><em class="property"> = ('link text', '首页', '首页tab')</em><a class="headerlink" href="#page.WebCommonPage.home_link" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="page.WebCommonPage.login">
+<code class="sig-name descname">login</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/web_common_page.html#WebCommonPage.login"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.WebCommonPage.login" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.WebCommonPage.login_btn">
+<code class="sig-name descname">login_btn</code><em class="property"> = ('xpath', '//button[contains(text(), &quot;登录&quot;)]')</em><a class="headerlink" href="#page.WebCommonPage.login_btn" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.WebCommonPage.login_locators">
+<code class="sig-name descname">login_locators</code><em class="property"> = [('css selector', 'input[placeholder=&quot;手机号/用户名/邮箱&quot;]'), ('xpath', '//input[&#64;placeholder=&quot;密码&quot;]'), ('xpath', '//button[contains(text(), &quot;登录&quot;)]')]</em><a class="headerlink" href="#page.WebCommonPage.login_locators" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="page.WebCommonPage.open_and_maximize">
+<code class="sig-name descname">open_and_maximize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/page/web_common_page.html#WebCommonPage.open_and_maximize"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#page.WebCommonPage.open_and_maximize" title="永久链接至目标">¶</a></dt>
+<dd><p>打开网址并最大化窗口</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="page.WebCommonPage.pwd_input_box">
+<code class="sig-name descname">pwd_input_box</code><em class="property"> = ('xpath', '//input[&#64;placeholder=&quot;密码&quot;]')</em><a class="headerlink" href="#page.WebCommonPage.pwd_input_box" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="page.WebCommonPage.user_name_input_box">
+<code class="sig-name descname">user_name_input_box</code><em class="property"> = ('css selector', 'input[placeholder=&quot;手机号/用户名/邮箱&quot;]')</em><a class="headerlink" href="#page.WebCommonPage.user_name_input_box" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="page.android.html" class="btn btn-neutral float-right" title="Android页面模块" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="base.html" class="btn btn-neutral float-left" title="基础模块" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2020, lc
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

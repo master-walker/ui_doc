@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>辅助工具模块 &mdash; ui_doc 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="WEB用例模块" href="testcase.web.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> ui_doc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="base.html">基础模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="page.html">页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="page.android.html">Android页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="page.ios.html">IOS页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="page.web.html">WEB页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testcase.html">用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testcase.android.html">Android用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testcase.ios.html">IOS用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testcase.web.html">WEB用例模块</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">辅助工具模块</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.common">utils.common module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.decorator">utils.decorator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.generator">utils.generator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.logger">utils.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.read_config">utils.read_config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.read_data">utils.read_data module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ui_doc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>辅助工具模块</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>辅助工具模块<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="module-utils.common">
+<span id="utils-common-module"></span><h2>utils.common module<a class="headerlink" href="#module-utils.common" title="永久链接至标题">¶</a></h2>
+<p>公共参数配置和公共函数模块</p>
+<dl class="py function">
+<dt id="utils.common.get_android_driver">
+<code class="sig-prename descclassname">utils.common.</code><code class="sig-name descname">get_android_driver</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/common.html#get_android_driver"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.common.get_android_driver" title="永久链接至目标">¶</a></dt>
+<dd><p>获取 Android driver</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.common.get_driver">
+<code class="sig-prename descclassname">utils.common.</code><code class="sig-name descname">get_driver</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/common.html#get_driver"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.common.get_driver" title="永久链接至目标">¶</a></dt>
+<dd><p>根据配置返回不同的driver</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.common.get_env_url">
+<code class="sig-prename descclassname">utils.common.</code><code class="sig-name descname">get_env_url</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/common.html#get_env_url"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.common.get_env_url" title="永久链接至目标">¶</a></dt>
+<dd><p>根据环境，拼接url地址</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.common.get_env_var">
+<code class="sig-prename descclassname">utils.common.</code><code class="sig-name descname">get_env_var</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variable</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/common.html#get_env_var"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.common.get_env_var" title="永久链接至目标">¶</a></dt>
+<dd><p>获取环境变量或配置变量</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.common.get_grid_driver">
+<code class="sig-prename descclassname">utils.common.</code><code class="sig-name descname">get_grid_driver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">caps</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/common.html#get_grid_driver"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.common.get_grid_driver" title="永久链接至目标">¶</a></dt>
+<dd><p>获取 grid driver</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.common.get_ios_driver">
+<code class="sig-prename descclassname">utils.common.</code><code class="sig-name descname">get_ios_driver</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/common.html#get_ios_driver"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.common.get_ios_driver" title="永久链接至目标">¶</a></dt>
+<dd><p>获取ios driver</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.common.get_web_driver">
+<code class="sig-prename descclassname">utils.common.</code><code class="sig-name descname">get_web_driver</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/common.html#get_web_driver"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.common.get_web_driver" title="永久链接至目标">¶</a></dt>
+<dd><p>获取 web driver</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.common.screenshot">
+<code class="sig-prename descclassname">utils.common.</code><code class="sig-name descname">screenshot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/common.html#screenshot"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.common.screenshot" title="永久链接至目标">¶</a></dt>
+<dd><p>截图</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.decorator">
+<span id="utils-decorator-module"></span><h2>utils.decorator module<a class="headerlink" href="#module-utils.decorator" title="永久链接至标题">¶</a></h2>
+<dl class="py class">
+<dt id="utils.decorator.Singleton">
+<em class="property">class </em><code class="sig-prename descclassname">utils.decorator.</code><code class="sig-name descname">Singleton</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/decorator.html#Singleton"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.decorator.Singleton" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.decorator.singleton">
+<code class="sig-prename descclassname">utils.decorator.</code><code class="sig-name descname">singleton</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/decorator.html#singleton"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.decorator.singleton" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="utils.decorator.synchronized">
+<code class="sig-prename descclassname">utils.decorator.</code><code class="sig-name descname">synchronized</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/decorator.html#synchronized"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.decorator.synchronized" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="utils.decorator.typeassert">
+<code class="sig-prename descclassname">utils.decorator.</code><code class="sig-name descname">typeassert</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">ty_args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">ty_kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/decorator.html#typeassert"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.decorator.typeassert" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-utils.generator">
+<span id="utils-generator-module"></span><h2>utils.generator module<a class="headerlink" href="#module-utils.generator" title="永久链接至标题">¶</a></h2>
+<p>生成测试数据</p>
+<dl class="py function">
+<dt id="utils.generator.factory_choice_generator">
+<code class="sig-prename descclassname">utils.generator.</code><code class="sig-name descname">factory_choice_generator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/generator.html#factory_choice_generator"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.generator.factory_choice_generator" title="永久链接至目标">¶</a></dt>
+<dd><p>返回一个生成器函数，调用这个函数产生生成器，从给定的list中随机取一项。</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.generator.factory_generate_ids">
+<code class="sig-prename descclassname">utils.generator.</code><code class="sig-name descname">factory_generate_ids</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">starting_id</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">increment</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/generator.html#factory_generate_ids"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.generator.factory_generate_ids" title="永久链接至目标">¶</a></dt>
+<dd><p>返回一个生成器函数，调用这个函数产生生成器，从starting_id开始，步长为increment。</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.generator.random_address">
+<code class="sig-prename descclassname">utils.generator.</code><code class="sig-name descname">random_address</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/generator.html#random_address"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.generator.random_address" title="永久链接至目标">¶</a></dt>
+<dd><p>随机地址</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.generator.random_email">
+<code class="sig-prename descclassname">utils.generator.</code><code class="sig-name descname">random_email</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/generator.html#random_email"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.generator.random_email" title="永久链接至目标">¶</a></dt>
+<dd><p>随机email</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.generator.random_ipv4">
+<code class="sig-prename descclassname">utils.generator.</code><code class="sig-name descname">random_ipv4</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/generator.html#random_ipv4"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.generator.random_ipv4" title="永久链接至目标">¶</a></dt>
+<dd><p>随机IPV4地址</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.generator.random_name">
+<code class="sig-prename descclassname">utils.generator.</code><code class="sig-name descname">random_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/generator.html#random_name"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.generator.random_name" title="永久链接至目标">¶</a></dt>
+<dd><p>随机姓名</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.generator.random_phone_number">
+<code class="sig-prename descclassname">utils.generator.</code><code class="sig-name descname">random_phone_number</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/generator.html#random_phone_number"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.generator.random_phone_number" title="永久链接至目标">¶</a></dt>
+<dd><p>随机手机号</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.generator.random_str">
+<code class="sig-prename descclassname">utils.generator.</code><code class="sig-name descname">random_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">min_chars</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">max_chars</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/generator.html#random_str"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.generator.random_str" title="永久链接至目标">¶</a></dt>
+<dd><p>长度在最大值与最小值之间的随机字符串</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.logger">
+<span id="utils-logger-module"></span><h2>utils.logger module<a class="headerlink" href="#module-utils.logger" title="永久链接至标题">¶</a></h2>
+<dl class="py function">
+<dt id="utils.logger.create_log_file">
+<code class="sig-prename descclassname">utils.logger.</code><code class="sig-name descname">create_log_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/logger.html#create_log_file"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.logger.create_log_file" title="永久链接至目标">¶</a></dt>
+<dd><p>创建日志文件</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.logger.get_logger">
+<code class="sig-prename descclassname">utils.logger.</code><code class="sig-name descname">get_logger</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log_file_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/logger.html#get_logger"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.logger.get_logger" title="永久链接至目标">¶</a></dt>
+<dd><p>获取字典配置-日志记录器</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="utils.logger.log_dir_path">
+<code class="sig-prename descclassname">utils.logger.</code><code class="sig-name descname">log_dir_path</code><em class="property"> = '/Users/msk/test_project/my_ui/report/log'</em><a class="headerlink" href="#utils.logger.log_dir_path" title="永久链接至目标">¶</a></dt>
+<dd><p>获取日志记录器</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.read_config">
+<span id="utils-read-config-module"></span><h2>utils.read_config module<a class="headerlink" href="#module-utils.read_config" title="永久链接至标题">¶</a></h2>
+<dl class="py class">
+<dt id="utils.read_config.Config">
+<em class="property">class </em><code class="sig-prename descclassname">utils.read_config.</code><code class="sig-name descname">Config</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/read_config.html#Config"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.read_config.Config" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#utils.decorator.Singleton" title="utils.decorator.Singleton"><code class="xref py py-class docutils literal notranslate"><span class="pre">utils.decorator.Singleton</span></code></a></p>
+<p>读取配置数据</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.read_data">
+<span id="utils-read-data-module"></span><h2>utils.read_data module<a class="headerlink" href="#module-utils.read_data" title="永久链接至标题">¶</a></h2>
+<dl class="py class">
+<dt id="utils.read_data.Data">
+<em class="property">class </em><code class="sig-prename descclassname">utils.read_data.</code><code class="sig-name descname">Data</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/read_data.html#Data"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#utils.read_data.Data" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#utils.decorator.Singleton" title="utils.decorator.Singleton"><code class="xref py py-class docutils literal notranslate"><span class="pre">utils.decorator.Singleton</span></code></a></p>
+<p>读取yaml数据</p>
+<p>根据不同环境配置读取不同的测试数据</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils" title="永久链接至标题">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="testcase.web.html" class="btn btn-neutral float-left" title="WEB用例模块" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2020, lc
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

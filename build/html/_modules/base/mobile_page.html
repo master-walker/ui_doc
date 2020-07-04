@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>base.mobile_page &mdash; ui_doc 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> ui_doc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../base.html">基础模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.html">页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.android.html">Android页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.ios.html">IOS页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.web.html">WEB页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.html">用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.android.html">Android用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.ios.html">IOS用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.web.html">WEB用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils.html">辅助工具模块</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ui_doc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">模块代码</a> &raquo;</li>
+        
+      <li>base.mobile_page</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>base.mobile_page 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">appium.webdriver.connectiontype</span> <span class="kn">import</span> <span class="n">ConnectionType</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">common</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">base.base_page</span> <span class="kn">import</span> <span class="n">BasePage</span>
+<span class="kn">from</span> <span class="nn">appium.webdriver.webdriver</span> <span class="kn">import</span> <span class="n">WebDriver</span>
+
+
+<div class="viewcode-block" id="MobilePage"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage">[文档]</a><span class="k">class</span> <span class="nc">MobilePage</span><span class="p">(</span><span class="n">BasePage</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;移动端操作方法</span>
+
+<span class="sd">    包含iOS和Android端的api</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="p">:</span> <span class="n">WebDriver</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">driver</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MobilePage.swipe_to_left"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.swipe_to_left">[文档]</a>    <span class="k">def</span> <span class="nf">swipe_to_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">800</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;屏幕左滑&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">swipe</span><span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.swipe_to_right"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.swipe_to_right">[文档]</a>    <span class="k">def</span> <span class="nf">swipe_to_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">800</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;屏幕右滑&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">swipe</span><span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.swipe_to_down"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.swipe_to_down">[文档]</a>    <span class="k">def</span> <span class="nf">swipe_to_down</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">800</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;屏幕下滑&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">swipe</span><span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.swipe_to_up"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.swipe_to_up">[文档]</a>    <span class="k">def</span> <span class="nf">swipe_to_up</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">800</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;屏幕上滑&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">swipe</span><span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.tap"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.tap">[文档]</a>    <span class="k">def</span> <span class="nf">tap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;模拟手指点击（最多五个手指），可设置按住时间长度（毫秒）</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            positions: an array of tuples representing the x/y coordinates of</span>
+<span class="sd">                the fingers to tap. Length can be up to five.</span>
+<span class="sd">            duration: length of time to tap, in ms</span>
+
+<span class="sd">        Usage:</span>
+<span class="sd">            driver.tap([(100, 20), (100, 60), (100, 100)], 500)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[&#39;WebDriver&#39;, &#39;ActionHelpers&#39;]: Self instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span><span class="n">positions</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.flick"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.flick">[文档]</a>    <span class="k">def</span> <span class="nf">flick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">,</span> <span class="n">end_x</span><span class="p">,</span> <span class="n">end_y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;按住A点后快速滑动至B点&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">flick</span><span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">,</span> <span class="n">end_x</span><span class="p">,</span> <span class="n">end_y</span><span class="p">)</span></div>
+
+    <span class="c1"># android端</span>
+<div class="viewcode-block" id="MobilePage.install_app"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.install_app">[文档]</a>    <span class="k">def</span> <span class="nf">install_app</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;安装应用&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">install_app</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.is_install_app"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.is_install_app">[文档]</a>    <span class="k">def</span> <span class="nf">is_install_app</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">package_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;检查应用是否安装&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">is_app_installed</span><span class="p">(</span><span class="n">package_name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.uninstall"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.uninstall">[文档]</a>    <span class="k">def</span> <span class="nf">uninstall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">package_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;卸载应用&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">remove_app</span><span class="p">(</span><span class="n">package_name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.launch"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.launch">[文档]</a>    <span class="k">def</span> <span class="nf">launch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;启动应用&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">launch_app</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;launch app&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.close_app"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.close_app">[文档]</a>    <span class="k">def</span> <span class="nf">close_app</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;关闭应用&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">close_app</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;close app&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.reset"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.reset">[文档]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;重置应用&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MobilePage.background"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.background">[文档]</a>    <span class="k">def</span> <span class="nf">background</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sleep_time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;把当前应用放到app后台&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">background_app</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;make app background </span><span class="si">{0}</span><span class="s2"> seconds&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MobilePage.get_activity"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.get_activity">[文档]</a>    <span class="k">def</span> <span class="nf">get_activity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;获取activity&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">current_activity</span></div>
+
+<div class="viewcode-block" id="MobilePage.open_notifications"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.open_notifications">[文档]</a>    <span class="k">def</span> <span class="nf">open_notifications</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;打开通知栏</span>
+
+<span class="sd">        打开通知栏功能只有Android可用</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">open_notifications</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;打开通知栏&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.screen_shot"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.screen_shot">[文档]</a>    <span class="k">def</span> <span class="nf">screen_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;截图</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">screenshot_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">screenshot_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">screenshot_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">screenshot_path</span><span class="p">)</span>
+        <span class="n">time_str</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">%H%M%S&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">file_name</span><span class="p">:</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">screenshot_path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">time_str</span><span class="si">}{</span><span class="n">file_name</span><span class="si">}</span><span class="s1">.png&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">screenshot_path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">time_str</span><span class="si">}</span><span class="s1">.png&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get_screenshot_as_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;截图保存在: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">screenshot_path</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">file_path</span></div>
+
+    <span class="c1"># 锁定屏幕</span>
+<div class="viewcode-block" id="MobilePage.lock"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.lock">[文档]</a>    <span class="k">def</span> <span class="nf">lock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lock_time</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">lock</span><span class="p">(</span><span class="n">lock_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;lock the device </span><span class="si">{0}</span><span class="s2"> seconds&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lock_time</span><span class="p">))</span></div>
+
+    <span class="c1"># 元素滚动</span>
+<div class="viewcode-block" id="MobilePage.scroll"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.scroll">[文档]</a>    <span class="k">def</span> <span class="nf">scroll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">origin_el</span><span class="p">,</span> <span class="n">destination_el</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            origin_el: the element from which to being scrolling</span>
+<span class="sd">            destination_el: the element to scroll to</span>
+<span class="sd">            duration: a duration after pressing originalEl and move the element to destinationEl.</span>
+<span class="sd">                Default is 600 ms for W3C spec. Zero for MJSONWP.</span>
+
+<span class="sd">        Usage:</span>
+<span class="sd">            driver.scroll(el1, el2)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[&#39;WebDriver&#39;, &#39;ActionHelpers&#39;]: Self instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">origin_el</span><span class="p">,</span> <span class="n">destination_el</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.keyevent"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.keyevent">[文档]</a>    <span class="k">def</span> <span class="nf">keyevent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key_code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;键盘事件&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">keyevent</span><span class="p">(</span><span class="n">key_code</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.hide_keyboard"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.hide_keyboard">[文档]</a>    <span class="k">def</span> <span class="nf">hide_keyboard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;隐藏键盘,iOS使用key_name隐藏，安卓不使用参数&quot;&quot;&quot;</span>
+        <span class="n">platform</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">get_env_var</span><span class="p">(</span><span class="s1">&#39;platform&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;android&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">hide_keyboard</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;ios&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">hide_keyboard</span><span class="p">(</span><span class="n">key_name</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.wait_activity"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.wait_activity">[文档]</a>    <span class="k">def</span> <span class="nf">wait_activity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;等待指定的activity出现直到超时，interval为扫描间隔1秒&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">wait_activity</span><span class="p">(</span><span class="n">activity</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></div>
+
+    <span class="c1"># Api: 应用上下文</span>
+<div class="viewcode-block" id="MobilePage.contexts"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.contexts">[文档]</a>    <span class="k">def</span> <span class="nf">contexts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;列出所有的可用上下文&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">contexts</span></div>
+
+<div class="viewcode-block" id="MobilePage.current_context"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.current_context">[文档]</a>    <span class="k">def</span> <span class="nf">current_context</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;列出当前上下文&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">current_context</span></div>
+
+<div class="viewcode-block" id="MobilePage.switch_to_context"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.switch_to_context">[文档]</a>    <span class="k">def</span> <span class="nf">switch_to_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_context</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;切换上下文&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="n">new_context</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MobilePage.set_network"><a class="viewcode-back" href="../../base.html#base.mobile_page.MobilePage.set_network">[文档]</a>    <span class="k">def</span> <span class="nf">set_network</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net_type</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">         设置网络类型</span>
+<span class="sd">         Sets the network connection type. Android only.</span>
+<span class="sd">             Possible values:</span>
+<span class="sd">                 Value (Alias)      | Data | Wifi | Airplane Mode</span>
+<span class="sd">                 -------------------------------------------------</span>
+<span class="sd">                 0 (None)           | 0    | 0    | 0</span>
+<span class="sd">                 1 (Airplane Mode)  | 0    | 0    | 1</span>
+<span class="sd">                 2 (Wifi only)      | 0    | 1    | 0</span>
+<span class="sd">                 4 (Data only)      | 1    | 0    | 0</span>
+<span class="sd">                 6 (All network on) | 1    | 1    | 0</span>
+<span class="sd">         These are available through the enumeration `appium.webdriver.ConnectionType`</span>
+<span class="sd">         设置网络类型</span>
+<span class="sd">         :Args:</span>
+<span class="sd">          - net_type - a member of the enum appium.webdriver.ConnectionType</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">net_type</span> <span class="o">==</span> <span class="s2">&quot;airplane_mode&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">set_network_connection</span><span class="p">(</span><span class="n">ConnectionType</span><span class="o">.</span><span class="n">AIRPLANE_MODE</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">net_type</span> <span class="o">==</span> <span class="s2">&quot;wifi_only&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">set_network_connection</span><span class="p">(</span><span class="n">ConnectionType</span><span class="o">.</span><span class="n">WIFI_ONLY</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">net_type</span> <span class="o">==</span> <span class="s2">&quot;data_only&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">set_network_connection</span><span class="p">(</span><span class="n">ConnectionType</span><span class="o">.</span><span class="n">DATA_ONLY</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">set_network_connection</span><span class="p">(</span><span class="n">ConnectionType</span><span class="o">.</span><span class="n">ALL_NETWORK_ON</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2020, lc
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

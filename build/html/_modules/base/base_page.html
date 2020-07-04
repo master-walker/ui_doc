@@ -1,0 +1,670 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>base.base_page &mdash; ui_doc 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> ui_doc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../base.html">基础模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.html">页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.android.html">Android页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.ios.html">IOS页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.web.html">WEB页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.html">用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.android.html">Android用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.ios.html">IOS用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.web.html">WEB用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils.html">辅助工具模块</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ui_doc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">模块代码</a> &raquo;</li>
+        
+      <li>base.base_page</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>base.base_page 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: UTF-8 -*-</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">NoSuchElementException</span><span class="p">,</span> <span class="n">TimeoutException</span><span class="p">,</span> <span class="n">InvalidArgumentException</span><span class="p">,</span> \
+    <span class="n">ElementNotInteractableException</span><span class="p">,</span> <span class="n">ElementNotVisibleException</span><span class="p">,</span> <span class="n">UnexpectedAlertPresentException</span>
+<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">StaleElementReferenceException</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.chrome.webdriver</span> <span class="kn">import</span> <span class="n">WebDriver</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.remote.webelement</span> <span class="kn">import</span> <span class="n">WebElement</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support</span> <span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">EC</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support.ui</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">typeassert</span>
+
+<span class="c1"># 常用配置</span>
+<span class="n">wait_time</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">wait_time</span><span class="p">)</span>
+<span class="n">success</span> <span class="o">=</span> <span class="s2">&quot;SUCCESS   &quot;</span>
+<span class="n">fail</span> <span class="o">=</span> <span class="s2">&quot;FAIL   &quot;</span>
+
+
+<div class="viewcode-block" id="BasePage"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage">[文档]</a><span class="k">class</span> <span class="nc">BasePage</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    页面基类</span>
+
+<span class="sd">    提供基本的查找元素及通用操作的方法，用于web页面和移动端页面继承</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="p">:</span> <span class="n">WebDriver</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">driver</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+
+    <span class="c1"># 获取元素和元素信息，返回元素信息数组</span>
+<div class="viewcode-block" id="BasePage.find_element"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.find_element">[文档]</a>    <span class="nd">@typeassert</span><span class="p">(</span><span class="n">locator</span><span class="o">=</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">find_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="n">wait_time</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        查找页面元素</span>
+
+<span class="sd">        参数类型需要匹配：locators：tuple, condition：str</span>
+
+<span class="sd">        :Args:</span>
+<span class="sd">         - locator - 定位元素 格式示例：(By.ID, &#39;element_id&#39;, &quot;元素信息&quot;) 或 (By.ID, &#39;element_id&#39;)，</span>
+<span class="sd">            元素信息可选，主要用于打印调试日志以及后期维护</span>
+<span class="sd">         - sleep_time - 可选参数</span>
+<span class="sd">            显式等待时间，默认读取配置时间</span>
+<span class="sd">         - condition - 可选参数</span>
+<span class="sd">            expected_conditions模块提供的等待条件</span>
+
+<span class="sd">        :Usage:</span>
+<span class="sd">         _locator = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         self.find_element(self._locator)</span>
+<span class="sd">         self.find_element(self._locator, sleep_time=5, condition=&#39;element_to_be_clickable&#39;)</span>
+
+<span class="sd">        :Returns:</span>
+<span class="sd">         返回Webelement对象</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定位的元素：</span><span class="si">{</span><span class="n">locator</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">wait</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="p">,</span> <span class="n">sleep_time</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">condition</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">EC</span><span class="p">,</span> <span class="n">condition</span><span class="p">):</span>
+                <span class="n">element</span> <span class="o">=</span> <span class="n">wait</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">EC</span><span class="p">,</span> <span class="n">condition</span><span class="p">)(</span><span class="n">locator</span><span class="p">[:</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">element</span> <span class="o">=</span> <span class="n">wait</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">presence_of_element_located</span><span class="p">(</span><span class="n">locator</span><span class="p">[:</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;获取元素 </span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2">, Spend </span><span class="si">{2}</span><span class="s2"> seconds&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">locator</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">success</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">element</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">NoSuchElementException</span><span class="p">,</span> <span class="n">TimeoutException</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;获取元素 </span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2">, Spend </span><span class="si">{2}</span><span class="s2"> seconds&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">locator</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">fail</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="BasePage.find_elements"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.find_elements">[文档]</a>    <span class="k">def</span> <span class="nf">find_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locators</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="n">wait_time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        根据locators获取一个元素或多个元素</span>
+
+<span class="sd">        主要为操作多个元素或单个元素的方法提供支持</span>
+
+<span class="sd">        :Args:</span>
+<span class="sd">         - locators: 定位元素, 参数类型：元祖或数组</span>
+<span class="sd">            格式示例：(By.ID, &#39;element_id&#39;, &quot;元素信息&quot;) 或 [(By.ID, &#39;element_id&#39;, &quot;元素信息&quot;),(By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)]，</span>
+<span class="sd">            元素信息参数可选，主要用于打印调试日志以及后期维护</span>
+<span class="sd">         - sleep_time - 可选参数</span>
+<span class="sd">            显式等待时间，默认读取配置时间</span>
+
+<span class="sd">        :Usage:</span>
+<span class="sd">         _locator1 = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         _locator2 = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         _locators = [_locator1, _locator2]</span>
+<span class="sd">         self.find_elements(self._locator1)</span>
+<span class="sd">         self.find_elements(self.locators, sleep_time=5)</span>
+
+<span class="sd">        :Returns:</span>
+<span class="sd">         locators参数为单个元素，返回Webelement对象</span>
+<span class="sd">         locators参数是多个元素组成的数组，返回多个Webelement对象组成的数组</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;定位的元素：</span><span class="si">{</span><span class="n">locators</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">locators</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">locators</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">locators</span><span class="p">,</span> <span class="n">sleep_time</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;获取到的元素：</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">element</span>
+        <span class="k">elif</span> <span class="n">locators</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">locators</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">locators</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">locators</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sleep_time</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">locator</span> <span class="ow">in</span> <span class="n">locators</span><span class="p">:</span>
+                    <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">locator</span><span class="p">,</span> <span class="n">sleep_time</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;获取到的元素列表：</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">elements</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">elements</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InvalidArgumentException</span><span class="p">(</span><span class="s2">&quot;参数类型错误，请传入元祖或数组&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BasePage.find_group_elements"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.find_group_elements">[文档]</a>    <span class="nd">@typeassert</span><span class="p">(</span><span class="n">locator</span><span class="o">=</span><span class="nb">tuple</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">find_group_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="n">wait_time</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取一组相同类型元素</span>
+
+<span class="sd">        :Args:</span>
+<span class="sd">         - locator - 定位元素 格式示例：(By.ID, &#39;element_id&#39;, &quot;元素信息&quot;) 或 (By.ID, &#39;element_id&#39;)，</span>
+<span class="sd">            元素信息可选，主要用于打印调试日志以及后期维护</span>
+<span class="sd">         - sleep_time - 可选参数</span>
+<span class="sd">            显式等待时间，默认读取配置时间</span>
+<span class="sd">         - num - 可选参数</span>
+<span class="sd">            获取元素的数量，默认为None，返回所有元素</span>
+
+<span class="sd">        :Usage:</span>
+<span class="sd">         _locator = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         self.find_group_elements(self._locator)</span>
+<span class="sd">         self.find_group_elements(self._locator, sleep_time=5, num=2)</span>
+
+<span class="sd">        :Returns:</span>
+<span class="sd">         返回一组Webelement对象组成的数组</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">group_elements</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="p">,</span> <span class="n">sleep_time</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+                <span class="n">EC</span><span class="o">.</span><span class="n">presence_of_all_elements_located</span><span class="p">(</span><span class="n">locator</span><span class="p">[:</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="c1"># 获取指定个数的元素</span>
+            <span class="k">if</span> <span class="n">group_elements</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">elements</span> <span class="o">=</span> <span class="n">group_elements</span><span class="p">[:</span><span class="n">num</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;获取元素 </span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2"> Spend </span><span class="si">{2}</span><span class="s2"> seconds&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">locator</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">success</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;已获取元素：</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">elements</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">elements</span>
+            <span class="k">return</span> <span class="n">group_elements</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">TimeoutException</span><span class="p">,</span> <span class="n">NoSuchElementException</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;获取元素 </span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2"> Spend </span><span class="si">{2}</span><span class="s2"> seconds&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">locator</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">fail</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="BasePage.find_group_elements_text"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.find_group_elements_text">[文档]</a>    <span class="k">def</span> <span class="nf">find_group_elements_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="n">wait_time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取一组元素的文本</span>
+
+<span class="sd">         :Args:</span>
+<span class="sd">         - locator - 定位元素 格式示例：(By.ID, &#39;element_id&#39;, &quot;元素信息&quot;) 或 (By.ID, &#39;element_id&#39;)，</span>
+<span class="sd">            元素信息可选，主要用于打印调试日志以及后期维护</span>
+<span class="sd">         - sleep_time - 可选参数</span>
+<span class="sd">            显式等待时间，默认读取配置时间</span>
+
+<span class="sd">        :Usage:</span>
+<span class="sd">         _locator = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         self.find_group_elements_text(self._locator)</span>
+<span class="sd">         self.find_group_elements_text(self._locator, sleep_time=5)</span>
+
+<span class="sd">        :Returns:</span>
+<span class="sd">         返回一组文本组成的数组</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_group_elements</span><span class="p">(</span><span class="n">locator</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="n">sleep_time</span><span class="p">)</span>
+        <span class="n">elements_text</span> <span class="o">=</span> <span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;获取到的元素文本列表：</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">elements_text</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">elements_text</span></div>
+
+<div class="viewcode-block" id="BasePage.get_group_elements_count"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.get_group_elements_count">[文档]</a>    <span class="k">def</span> <span class="nf">get_group_elements_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="n">wait_time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取一组元素的个数</span>
+
+<span class="sd">         :Args:</span>
+<span class="sd">         - locator - 定位元素 格式示例：(By.ID, &#39;element_id&#39;, &quot;元素信息&quot;) 或 (By.ID, &#39;element_id&#39;)，</span>
+<span class="sd">            元素信息可选，主要用于打印调试日志以及后期维护</span>
+<span class="sd">         - sleep_time - 可选参数</span>
+<span class="sd">            显式等待时间，默认读取配置时间</span>
+
+<span class="sd">        :Usage:</span>
+<span class="sd">         _locator = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         self.get_group_elements_count(self._locator)</span>
+<span class="sd">         self.get_group_elements_count(self._locator, sleep_time=5)</span>
+
+<span class="sd">        :Returns:</span>
+<span class="sd">         返回一组元素的数量</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">group_elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_group_elements</span><span class="p">(</span><span class="n">locator</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="n">sleep_time</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">group_elements</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">elements_num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group_elements</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;获取元素的个数为：</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">elements_num</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">elements_num</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;获取元素的个数为：0&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="BasePage.is_element"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.is_element">[文档]</a>    <span class="k">def</span> <span class="nf">is_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator_or_element</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="n">wait_time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        定位元素或返回Webelement对象，内部调用</span>
+
+<span class="sd">         :Args:</span>
+<span class="sd">         - locator_or_element - 定位元素或Webelement对象</span>
+<span class="sd">         - sleep_time - 可选参数</span>
+<span class="sd">            显式等待时间，默认读取配置时间</span>
+
+<span class="sd">        :Usage:</span>
+<span class="sd">         _locator = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         self.is_element(self._locator)</span>
+<span class="sd">         element = self.find_element(self._locator)</span>
+<span class="sd">         self.is_element(element)</span>
+
+<span class="sd">        :Returns:</span>
+<span class="sd">         返回Webelement对象</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">locator_or_element</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">locator_or_element</span><span class="p">,</span> <span class="n">sleep_time</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">element</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">locator_or_element</span><span class="p">,</span> <span class="n">WebElement</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">locator_or_element</span></div>
+
+<div class="viewcode-block" id="BasePage.send_keys"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.send_keys">[文档]</a>    <span class="k">def</span> <span class="nf">send_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locators</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        输入框输入操作</span>
+
+<span class="sd">         :Args:</span>
+<span class="sd">         - locators - 定位元素, 参数类型：元祖或数组</span>
+<span class="sd">            格式示例：(By.ID, &#39;element_id&#39;, &quot;元素信息&quot;) 或 [(By.ID, &#39;element_id&#39;, &quot;元素信息&quot;),(By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)]，</span>
+<span class="sd">         - data - 输入数据</span>
+<span class="sd">            单个输入，传入单个数据即可</span>
+<span class="sd">            多个输入，传入多个数据即可，类型一般为元祖或数组</span>
+
+<span class="sd">        :Usage:</span>
+<span class="sd">         _locator = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         _locator1 = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         _locator2 = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         _locators = [_locator1, _locator2]</span>
+<span class="sd">         test_data = [123, 345]</span>
+<span class="sd">         self.send_keys(_locator, 123)</span>
+<span class="sd">         self.send_keys(_locators, test_data)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_elements</span><span class="p">(</span><span class="n">locators</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="n">InvalidArgumentException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;输入框和输入数据数量不一致, 元素数目：</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span><span class="si">}</span><span class="s1">，输入数据列表数目：</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
+                    <span class="n">element</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                    <span class="n">element</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> send_keys </span><span class="si">{1}</span><span class="s2">, Spend </span><span class="si">{2}</span><span class="s2"> seconds&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">locators</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">WebElement</span><span class="p">):</span>
+                <span class="n">elements</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="n">elements</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> send_keys </span><span class="si">{1}</span><span class="s2">, Spend </span><span class="si">{2}</span><span class="s2"> seconds&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">locators</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">NoSuchElementException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">locators</span><span class="si">}</span><span class="s1"> 未获取到元素&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">ElementNotInteractableException</span><span class="p">,</span> <span class="n">ElementNotVisibleException</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="BasePage.click"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.click">[文档]</a>    <span class="k">def</span> <span class="nf">click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="n">wait_time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        点击操作</span>
+
+<span class="sd">        :Args:</span>
+<span class="sd">         - locator - 定位元素 格式示例：(By.ID, &#39;element_id&#39;, &quot;元素信息&quot;) 或 (By.ID, &#39;element_id&#39;)，</span>
+<span class="sd">            元素信息可选，主要用于打印调试日志以及后期维护</span>
+<span class="sd">         - sleep_time - 可选参数</span>
+<span class="sd">            显式等待时间，默认读取配置时间</span>
+
+<span class="sd">        :Usage:</span>
+<span class="sd">         _locator = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         self.click(self._locator)</span>
+<span class="sd">         self.click(self._locator, sleep_time=5)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">locator</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="n">sleep_time</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="s1">&#39;element_to_be_clickable&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">WebElement</span><span class="p">):</span>
+                <span class="n">element</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;点击  </span><span class="si">{0}</span><span class="s2">  Spend </span><span class="si">{1}</span><span class="s2"> seconds&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">locator</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">locator</span><span class="si">}</span><span class="s1">，未获取到元素&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">UnexpectedAlertPresentException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="BasePage.clear"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.clear">[文档]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        输入框清空</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+        <span class="n">element</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="BasePage.submit"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.submit">[文档]</a>    <span class="nd">@typeassert</span><span class="p">(</span><span class="n">locators</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">submit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locators</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        输入数据并点击按钮，提交表单</span>
+
+<span class="sd">        适用场景：</span>
+<span class="sd">        多个输入框输入数据后，需要点击提交</span>
+
+<span class="sd">        :Args:</span>
+<span class="sd">         - locators - 定位元素 由至少一个输入框元素和一个按钮元素组成的数组</span>
+<span class="sd">            格式示例：[(By.ID, &#39;element_id&#39;, &quot;输入框元素&quot;), (By.ID, &#39;element_id&#39;, &#39;提交按钮&#39;)]</span>
+<span class="sd">         - data - 输入数据</span>
+<span class="sd">            单个输入，则传入一个测试数据</span>
+<span class="sd">            多个输入，则传入多个测试数据组成的元祖或数组</span>
+<span class="sd">         - sleep_time - 可选参数</span>
+<span class="sd">            输入完成后的等待时间，默认1s</span>
+
+<span class="sd">        :Usage:</span>
+<span class="sd">         _locator1 = (By.ID, &#39;element_id&#39;, &quot;输入框1&quot;)</span>
+<span class="sd">         _locator2 = (By.ID, &#39;element_id&#39;, &quot;输入框2&quot;)</span>
+<span class="sd">         _locator = (By.ID, &#39;element_id&#39;, &quot;提交按钮&quot;)</span>
+<span class="sd">         _locators = [_locator1, _locator2, _locator]</span>
+<span class="sd">         test_data = [123, 345]</span>
+<span class="sd">         self.submit(_locators, test_data)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># 输入数据</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">locators</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span>
+        <span class="c1"># 点击提交</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">locators</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="BasePage.find_elements_text"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.find_elements_text">[文档]</a>    <span class="k">def</span> <span class="nf">find_elements_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locators</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="n">wait_time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取一个或多个元素的文本值</span>
+
+<span class="sd">        :Args:</span>
+<span class="sd">         - locator - 定位元素 格式示例：(By.ID, &#39;element_id&#39;, &quot;元素信息&quot;) 或 (By.ID, &#39;element_id&#39;)，</span>
+<span class="sd">            元素信息可选，主要用于打印调试日志以及后期维护</span>
+<span class="sd">         - sleep_time - 可选参数</span>
+<span class="sd">            显式等待时间，默认读取配置时间</span>
+
+<span class="sd">        :Usage:</span>
+<span class="sd">         _locator = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         self.find_elements_text(self._locator)</span>
+<span class="sd">         _locator1 = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         _locator2 = (By.ID, &#39;element_id&#39;, &quot;元素信息&quot;)</span>
+<span class="sd">         _locators = [_locator1, _locator2]</span>
+<span class="sd">         self.find_elements_text(_locators, sleep_time=5)</span>
+
+<span class="sd">        :Returns:</span>
+<span class="sd">         传入单个元素，返回单个文本</span>
+<span class="sd">         传入多个元素，返回多个文本组成的数组</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_elements</span><span class="p">(</span><span class="n">locators</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="n">sleep_time</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">elements</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;获取元素的文本： </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">WebElement</span><span class="p">):</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">elements</span><span class="o">.</span><span class="n">text</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;获取元素的文本： </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">text</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">())</span></div>
+
+    <span class="c1">#</span>
+<div class="viewcode-block" id="BasePage.find_elements_value"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.find_elements_value">[文档]</a>    <span class="k">def</span> <span class="nf">find_elements_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locators</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取一个或多个元素的属性值</span>
+
+<span class="sd">        用法同find_elements_text</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_elements</span><span class="p">(</span><span class="n">locators</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">elements</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;元素的属性值列表为：</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">values</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">WebElement</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">elements</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;元素的属性值为：</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="BasePage.is_element_contains_text"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.is_element_contains_text">[文档]</a>    <span class="nd">@typeassert</span><span class="p">(</span><span class="n">locator</span><span class="o">=</span><span class="nb">tuple</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">is_element_contains_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        判断元素是否包含text文本信息</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">element_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_elements_text</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;预期结果的文本：</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;实际获取到元素中的文本：</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element_text</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">element_text</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">element_text</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="BasePage.is_element_value_contains_text"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.is_element_value_contains_text">[文档]</a>    <span class="nd">@typeassert</span><span class="p">(</span><span class="n">locator</span><span class="o">=</span><span class="nb">tuple</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">is_element_value_contains_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        判断元素属性值是否有text文本信息</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">element_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_elements_value</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">element_value</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">element_value</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="n">StaleElementReferenceException</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="BasePage.is_selected"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.is_selected">[文档]</a>    <span class="k">def</span> <span class="nf">is_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator_or_element</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        检查单选框或复选框选中</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_element</span><span class="p">(</span><span class="n">locator_or_element</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">is_selected</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="n">StaleElementReferenceException</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="BasePage.is_enabled"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.is_enabled">[文档]</a>    <span class="k">def</span> <span class="nf">is_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator_or_element</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        检查元素是否可用</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_element</span><span class="p">(</span><span class="n">locator_or_element</span><span class="p">,</span> <span class="n">sleep_time</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">is_enabled</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="n">StaleElementReferenceException</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="BasePage.is_displayed"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.is_displayed">[文档]</a>    <span class="k">def</span> <span class="nf">is_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator_or_element</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        检查元素是否可见</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_element</span><span class="p">(</span><span class="n">locator_or_element</span><span class="p">,</span> <span class="n">sleep_time</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">is_displayed</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="n">StaleElementReferenceException</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="BasePage.back"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.back">[文档]</a>    <span class="k">def</span> <span class="nf">back</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;返回上一页</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">back</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;返回上一页&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BasePage.sleep"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.sleep">[文档]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">sleep</span><span class="p">(</span><span class="n">second</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;等待时间</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">second</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BasePage.get"><a class="viewcode-back" href="../../base.html#base.base_page.BasePage.get">[文档]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;输入url进入页面</span>
+
+<span class="sd">        :Args</span>
+<span class="sd">        - url 浏览器访问地址</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2020, lc
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
