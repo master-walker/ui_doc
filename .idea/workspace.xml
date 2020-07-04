@@ -2,7 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26318e23-4b5f-4445-9095-54928b905a33" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/source/conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/conf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/base.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/conf.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/modules.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/page.android.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/page.ios.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/page.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/page.web.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/testcase.android.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/testcase.ios.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/testcase.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/testcase.web.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/utils.rst" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +47,7 @@
       <option name="presentableId" value="Default" />
       <updated>1593672841915</updated>
       <workItem from="1593672843374" duration="637000" />
-      <workItem from="1593844698008" duration="1282000" />
+      <workItem from="1593844698008" duration="1439000" />
     </task>
     <servers />
   </component>

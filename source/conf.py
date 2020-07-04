@@ -13,13 +13,14 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-master_doc = 'index'
+
 
 # -- Project information -----------------------------------------------------
 # 引入项目路径
 # import os
 # import sys
 # sys.path.append(os.path.abspath('../../'))
+import sphinx_rtd_theme
 
 project = 'ui_doc'
 copyright = '2020, lc'
@@ -70,8 +71,14 @@ exclude_patterns = [
 #
 # 文档主题配置
 # html_theme = 'alabaster'
-source_suffix = ['.rst', '.md', '.MD']
 html_theme = 'sphinx_rtd_theme'
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
+from recommonmark.parser import CommonMarkParser
+source_parsers = {
+    '.md': CommonMarkParser,
+}
+source_suffix = ['.rst', '.md', '.MD']
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
