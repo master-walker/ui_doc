@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>utils.read_config &mdash; ui_doc 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> ui_doc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../base.html">基础模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.html">页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.android.html">Android页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.ios.html">IOS页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.web.html">WEB页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.html">用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.android.html">Android用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.ios.html">IOS用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.web.html">WEB用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils.html">辅助工具模块</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ui_doc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">模块代码</a> &raquo;</li>
+        
+      <li>utils.read_config</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>utils.read_config 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># coding = utf-8</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">utils.decorator</span> <span class="kn">import</span> <span class="n">Singleton</span>
+
+
+<div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../utils.html#utils.read_config.Config">[文档]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">Singleton</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;读取配置数据</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">yml_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path</span><span class="p">,</span> <span class="s1">&#39;config&#39;</span><span class="p">,</span> <span class="s1">&#39;config.yml&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">yml_path</span> <span class="o">=</span> <span class="n">path</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_yml_obj</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yml_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yml_data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_yml_obj</span><span class="p">)</span>
+
+        <span class="c1"># driver 路径</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chrome_driver_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path</span><span class="p">,</span> <span class="s1">&#39;driver&#39;</span><span class="p">,</span> <span class="s1">&#39;chromedriver&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">firefox_driver_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path</span><span class="p">,</span> <span class="s1">&#39;driver&#39;</span><span class="p">,</span> <span class="s1">&#39;geckodriver&#39;</span><span class="p">)</span>
+
+        <span class="c1"># 报告路径</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path</span><span class="p">,</span> <span class="s1">&#39;report&#39;</span><span class="p">)</span>
+        <span class="c1"># 测试数据路径</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+        <span class="c1"># 日志文件路径</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">report_path</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">)</span>
+        <span class="c1"># 上传文件路径</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upload_files_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;upload_files&#39;</span><span class="p">)</span>
+        <span class="c1"># 截图保存路径</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screenshot_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">report_path</span><span class="p">,</span> <span class="s1">&#39;screenshot&#39;</span><span class="p">)</span>
+        <span class="c1"># template路径</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">report_path</span><span class="p">,</span> <span class="s1">&#39;template&#39;</span><span class="p">)</span>
+        <span class="c1"># 配置数据</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yml_data</span><span class="p">[</span><span class="s2">&quot;conf&quot;</span><span class="p">]</span>
+        <span class="c1"># url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span>
+        <span class="c1"># 环境配置</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="p">[</span><span class="s2">&quot;env&quot;</span><span class="p">]</span>
+        <span class="c1"># 浏览器</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">browser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="p">[</span><span class="s2">&quot;browser&quot;</span><span class="p">]</span>
+        <span class="c1"># 运行平台</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="p">[</span><span class="s2">&quot;platform&quot;</span><span class="p">]</span>
+        <span class="c1"># 无头模式默认关闭</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headless</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># 显式等待时间</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wait_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="p">[</span><span class="s2">&quot;wait_time&quot;</span><span class="p">]</span>
+        <span class="c1"># appium 连接地址</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_executor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="p">[</span><span class="s2">&quot;command_executor&quot;</span><span class="p">]</span>
+
+        <span class="c1"># android desired_caps数据</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">android_caps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yml_data</span><span class="p">[</span><span class="s2">&quot;android_caps&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">platformName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">android_caps</span><span class="p">[</span><span class="s2">&quot;platformName&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">platformVersion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">android_caps</span><span class="p">[</span><span class="s2">&quot;platformVersion&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deviceName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">android_caps</span><span class="p">[</span><span class="s2">&quot;deviceName&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">appPackage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">android_caps</span><span class="p">[</span><span class="s2">&quot;appPackage&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">appActivity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">android_caps</span><span class="p">[</span><span class="s2">&quot;appActivity&quot;</span><span class="p">]</span>
+
+        <span class="c1"># grid caps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_caps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yml_data</span><span class="p">[</span><span class="s2">&quot;grid_caps&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hub_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_caps</span><span class="p">[</span><span class="s2">&quot;hub_url&quot;</span><span class="p">]</span>
+
+        <span class="c1"># ios caps 路径</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ios_caps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yml_data</span><span class="p">[</span><span class="s2">&quot;ios_caps&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ios_caps</span><span class="p">[</span><span class="s1">&#39;app&#39;</span><span class="p">]</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">!=</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2020, lc
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

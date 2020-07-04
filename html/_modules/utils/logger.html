@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>utils.logger &mdash; ui_doc 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> ui_doc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../base.html">基础模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.html">页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.android.html">Android页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.ios.html">IOS页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../page.web.html">WEB页面模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.html">用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.android.html">Android用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.ios.html">IOS用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testcase.web.html">WEB用例模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils.html">辅助工具模块</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ui_doc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">模块代码</a> &raquo;</li>
+        
+      <li>utils.logger</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>utils.logger 源代码</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding = utf-8</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+<span class="kn">import</span> <span class="nn">logging.config</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="n">log_dir_path</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">log_file_path</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">获取日志记录器</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="create_log_file"><a class="viewcode-back" href="../../utils.html#utils.logger.create_log_file">[文档]</a><span class="k">def</span> <span class="nf">create_log_file</span><span class="p">(</span><span class="n">log_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;创建日志文件&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">log_dir_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">log_dir_path</span><span class="p">)</span>
+        <span class="n">now_date</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">-%H&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
+        <span class="n">log_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_dir_path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">now_date</span><span class="si">}</span><span class="s2">.log&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">log_file_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;type nul &gt; </span><span class="si">{</span><span class="n">log_file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">log_file_path</span>
+    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;Linux&#39;</span><span class="p">,</span> <span class="s1">&#39;Darwin&#39;</span><span class="p">):</span>
+        <span class="c1"># 默认使用配置的日志路径，也可以使用自定义的日志路径</span>
+        <span class="k">if</span> <span class="n">log_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">log_dir_path</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">log_dir_path</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">log_dir_path</span><span class="p">)</span>
+            <span class="n">log_file_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.log&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">()))</span>
+            <span class="n">log_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_dir_path</span><span class="p">,</span> <span class="n">log_file_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">log_file_path</span><span class="p">):</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;touch </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">log_file_name</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;当前环境不能创建日志文件&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">base_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">log_file_path</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log_dir</span><span class="p">,</span> <span class="n">log_file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">log_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">log_dir</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">log_dir</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">log_dir</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">log_path</span><span class="p">):</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;touch </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">log_file_name</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;当前环境不能创建日志文件&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">log_path</span></div>
+
+
+<div class="viewcode-block" id="get_logger"><a class="viewcode-back" href="../../utils.html#utils.logger.get_logger">[文档]</a><span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="n">log_file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;获取字典配置-日志记录器&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">log_file_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">log_file_name</span> <span class="o">=</span> <span class="n">create_log_file</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">log_file_name</span> <span class="o">=</span> <span class="n">create_log_file</span><span class="p">(</span><span class="n">log_path</span><span class="o">=</span><span class="n">log_file_path</span><span class="p">)</span>
+    <span class="c1"># 日志配置</span>
+    <span class="n">log_config</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;formatters&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;simple&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(name)s</span><span class="s1"> </span><span class="si">%(levelname)s</span><span class="s1"> </span><span class="si">%(pathname)s</span><span class="s1">  </span><span class="si">%(funcName)s</span><span class="s1"> line:</span><span class="si">%(lineno)d</span><span class="s1">  </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;console&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.StreamHandler&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;simple&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;stream&#39;</span><span class="p">:</span> <span class="s1">&#39;ext://sys.stdout&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;console_err&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.StreamHandler&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;simple&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;stream&#39;</span><span class="p">:</span> <span class="s1">&#39;ext://sys.stderr&#39;</span>
+            <span class="p">},</span>
+            <span class="c1"># 按文件大小分割</span>
+            <span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.RotatingFileHandler&#39;</span><span class="p">,</span>  <span class="c1"># 保存到文件，自动按大小分割</span>
+                <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">log_file_name</span><span class="p">,</span>  <span class="c1"># 日志文件</span>
+                <span class="s1">&#39;maxBytes&#39;</span><span class="p">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">300</span><span class="p">,</span>  <span class="c1"># 日志大小300M，</span>
+                <span class="s1">&#39;backupCount&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>  <span class="c1"># 最多备份3个日志文件</span>
+                <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;simple&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;encoding&#39;</span><span class="p">:</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;loggers&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;root&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="c1"># 既有 console Handler，还有 file Handler</span>
+                <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;console_err&#39;</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+                <span class="c1"># &#39;propagate&#39;: True,</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dictConfig</span><span class="p">(</span><span class="n">log_config</span><span class="p">)</span>
+    <span class="n">root_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;root&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">root_logger</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">!=</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2020, lc
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
